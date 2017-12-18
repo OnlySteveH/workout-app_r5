@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "On visiting the signup page" do
-  scenario "the user will enter their information" do
+  scenario "the user can enter their information" do
     visit "/"
     click_link "Sign up"
     fill_in "Email", with: "steve@example.com"
