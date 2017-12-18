@@ -14,7 +14,7 @@ RSpec.feature "On visiting the sign-in page" do
     click_button "Log in"
     expect(page).to have_content "Signed in successfully"
     expect(page).to have_content "Signed in as #{@steve.email}"
-    #expect(page).to have_link destroy_user_session_path
+    #expect(page).to have_link(destroy_user_session_path, method: :delete)
     expect(page).to have_link "Sign out"
     expect(page).not_to have_link("Sign in")
     expect(page).not_to have_link("Sign up")
