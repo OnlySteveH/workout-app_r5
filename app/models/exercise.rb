@@ -3,4 +3,7 @@ class Exercise < ApplicationRecord
   validates :workout, presence: true
   validates :workout_date, presence: true
   belongs_to :user
+  
+  alias_attribute :workout_details, :workout
+  alias_attribute :activity_date, :workout_date
 end
