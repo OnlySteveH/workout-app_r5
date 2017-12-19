@@ -6,17 +6,17 @@ RSpec.feature "Listing Exercises" do
     @dave = User.create(email: "dave@example.com", password: "password")
     login_as(@john)
     
-    @e1 = @john.exercises.create(duration_in_min: 20,
+    @e1 = @john.exercises.create( duration_in_min: 20,
                                   workout: "My body building activity",
                                   workout_date: Date.today)
 
-    @e2 = @john.exercises.create(duration_in_min: 55,
+    @e2 = @john.exercises.create( duration_in_min: 55,
                                   workout: "Weight lifting",
                                   workout_date: 2.days.ago)
 
-    # @e3 = @john.exercises.create(duration_in_min: 55,
-    #                               workout: "Weight lifting",
-    #                               workout_date: 8.days.ago)
+    @e3 = @john.exercises.create( duration_in_min: 25,
+                                  workout: "Kickboxing",
+                                  workout_date: 8.days.ago)
   end
   
   scenario "shows user's workouts" do
@@ -32,14 +32,21 @@ RSpec.feature "Listing Exercises" do
     expect(page).to have_content(@e2.workout)
     expect(page).to have_content(@e2.workout_date)
     
-    # expect(page).not_to have_content(@e3.duration_in_min)
-    # expect(page).not_to have_content(@e3.workout)
-    # expect(page).not_to have_content(@e3.workout_date)
+    expect(page).not_to have_content(@e3.duration_in_min)
+    expect(page).not_to have_content(@e3.workout)
+    expect(page).not_to have_content(@e3.workout_date)
   
   end
   
   scenario "shows no exercises if none created" do
     @john.exercises.delete_all
+    visit root_path
+    click_link "My Lounge"
+    expect(page).to have_content("No Workouts Yet")
+  end
+  
+  scenario "logging in as alternative user has the same impact" do
+    login_as @dave
     visit root_path
     click_link "My Lounge"
     expect(page).to have_content("No Workouts Yet")
