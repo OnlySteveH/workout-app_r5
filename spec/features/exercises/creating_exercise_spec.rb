@@ -6,7 +6,7 @@ RSpec.feature "Creating an exercise" do
     login_as @steve
     visit root_path
     click_link "My Lounge"
-    click_link "New workout"
+    click_link "New Workout"
     expect(page).to have_link "Back"
   end
   

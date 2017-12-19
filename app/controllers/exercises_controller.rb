@@ -1,7 +1,7 @@
 class ExercisesController < ApplicationController
   
   def index
-    #@exercises = Exercise.all
+    @exercises = current_user.exercises
   end
   
   def show
