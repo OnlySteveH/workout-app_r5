@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   end
   
   def index
-    
+    @athletes = User.all
   end
   
 end
