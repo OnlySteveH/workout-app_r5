@@ -36,6 +36,10 @@ RSpec.feature "Creating an exercise" do
     expect(page).to have_content("Workout date can't be blank")
     expect(page).to have_content("Workout can't be blank")
     expect(page).to have_content("Duration in min is not a number")
-  
   end
+  
+  scenario "with a future date does not create an exercise" do
+    
+  end
+  
 end

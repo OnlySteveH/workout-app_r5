@@ -6,7 +6,7 @@ RSpec.feature "Editing Exercises" do
 
     login_as(@owner)
     
-    @owner_exercise = @owner.exercises.create(duration_in_min: 20,
+    @owner_exercise = @owner.exercises.create(duration_in_min: 41,
                                               workout: "My body building activity",
                                               workout_date: Date.today)
                                               
@@ -25,19 +25,32 @@ RSpec.feature "Editing Exercises" do
     
     expect(page).to have_content("Exercise has been updated")
     expect(page).to have_content(45)
-    expect(page).not_to have_content(20)
-    
+    expect(page).not_to have_content(41)
   end
   
-  scenario "with invalid data fails" do
+  scenario "with zero duration fails" do
     
     fill_in "Duration", with: 0
-    fill_in "Workout details", with: ""
+    fill_in "Workout details", with: "Test data"
     click_button "Update Exercise"
     
     expect(page).not_to have_content("Exercise has been updated")
     expect(page).to have_content("Exercise has not been updated")
 
+  end
+  
+  scenario "with blank details fails" do
+    
+    fill_in "Duration", with: 1
+    fill_in "Workout details", with: ""
+    click_button "Update Exercise"
+    
+    expect(page).not_to have_content("Exercise has been updated")
+    expect(page).to have_content("Exercise has not been updated")
+  end
+  
+  scenario "with a future date fails" do
+    
   end
   
 end
