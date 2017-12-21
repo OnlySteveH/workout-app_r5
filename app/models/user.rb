@@ -6,6 +6,8 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   has_many :exercises
   
+  self.per_page = 10
+  
   def full_name
     "#{first_name} #{last_name}"
   end
