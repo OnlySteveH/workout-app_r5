@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "On visiting the sign-in page" do
     
   before "create a user" do
-    @steve = User.create!(email: "steve@example.com", password: "password")
+    @steve = User.create!(first_name: "John", last_name: "Doe", email: "steve@example.com", password: "password")
   end
   
   scenario "the user can enter valid credentials to sign in" do  
