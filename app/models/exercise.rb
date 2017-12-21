@@ -3,7 +3,8 @@ class Exercise < ApplicationRecord
   validates :duration_in_min, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :workout, presence: true
   validates :workout_date, presence: true
-  #validate :not_future_date
+  validate :not_future_date
+  validate :older_than_a_week
   
   belongs_to :user
   
@@ -14,8 +15,14 @@ class Exercise < ApplicationRecord
                   .order(workout_date: :desc) }
 
   def not_future_date
-    unless Time.now > :workout_date
+    if workout_date.present? && Date.today < workout_date
       errors.add(:workout_date, "cannot be in the future")
+    end
+  end
+  
+  def older_than_a_week
+    if workout_date.present? && workout_date < 7.days.ago
+      errors.add(:workout_date, "cannot be older than a week")
     end
   end
   

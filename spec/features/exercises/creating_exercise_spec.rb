@@ -40,6 +40,24 @@ RSpec.feature "Creating an exercise" do
   
   scenario "with a future date does not create an exercise" do
     
+    fill_in "Duration", with: 70
+    fill_in "Workout details", with: "Weight lifting"
+    fill_in "Activity date", with: Date.today + 2.days
+    click_button "Create Exercise"
+    
+    expect(page).to have_content("cannot be in the future")
+    expect(page).to have_content "Exercise has not been created"
+  end
+  
+  scenario "with a date older than a week does not create an exercise" do
+    
+    fill_in "Duration", with: 70
+    fill_in "Workout details", with: "Weight lifting"
+    fill_in "Activity date", with: Date.today - 8.days
+    click_button "Create Exercise"
+    
+    expect(page).to have_content("cannot be older than a week")
+    expect(page).to have_content "Exercise has not been created"    
   end
   
 end

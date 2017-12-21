@@ -49,9 +49,21 @@ RSpec.feature "Editing Exercises" do
     expect(page).to have_content("Exercise has not been updated")
   end
   
-  scenario "with a future date fails" do
-    
+  scenario "with future date fails" do
+
+    fill_in "Activity date", with: Date.today + 2.days
+    click_button "Update Exercise"
+    expect(page).to have_content "cannot be in the future"
+    expect(page).to have_content("Exercise has not been updated")
+
   end
   
+  scenario "with date older than 7 days fails" do
+
+    fill_in "Activity date", with: Date.today - 8.days
+    click_button "Update Exercise"
+    expect(page).to have_content("Exercise has not been updated")
+    expect(page).to have_content "cannot be older than a week"
+  end  
 end
   
