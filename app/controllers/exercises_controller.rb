@@ -33,7 +33,7 @@ class ExercisesController < ApplicationController
       flash[:notice] = "Exercise has been updated"
       redirect_to [current_user, @exercise]
     else
-      flash[:alert] = "Exercise has not been updated"
+      flash.now[:alert] = "Exercise has not been updated"
       render :edit
     end
   end
