@@ -3,8 +3,8 @@ class Exercise < ApplicationRecord
   validates :duration_in_min, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :workout, presence: true
   validates :workout_date, presence: true
-  validate :not_future_date
-  validate :older_than_a_week
+  validate  :not_future_date
+  validate  :older_than_a_week
   
   belongs_to :user
   
