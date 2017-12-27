@@ -12,7 +12,9 @@ RSpec.feature "Listing Exercises" do
 
     @e2 = @john.exercises.create( duration_in_min: 55,
                                   workout: "Weight lifting",
-                                  workout_date: 2.days.ago)
+                                  workout_date: 3.days.ago)
+                                  
+    @following = Friendship.create(user: @john, friend: @dave)
 
     @e3 = @john.exercises.create( duration_in_min: 25,
                                   workout: "Kickboxing",
@@ -51,4 +53,13 @@ RSpec.feature "Listing Exercises" do
     click_link "My Lounge"
     expect(page).to have_content("No Workouts Yet")
   end
+  
+  scenario "shows a list of users if they are friends" do
+    visit root_path
+    click_link "My Lounge"
+    expect(page).to have_content("My Friends")
+    expect(page).to have_link @dave.full_name
+    expect(page).to have_link "Unfollow"
+  end
+  
 end
