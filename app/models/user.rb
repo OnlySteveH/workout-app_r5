@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   validates :first_name, :last_name, presence: true
   has_many :exercises
+  has_many :friendships
+  has_many :friends, through: :friendships, class_name: "User"
   
   self.per_page = 10
   
@@ -24,6 +26,10 @@ class User < ApplicationRecord
         "%#{names_array[1]}%", "%#{names_array[0]}%",
         "%#{names_array[1]}%").order(:first_name)
     end
+  end
+  
+  def follows_or_same?(new_friend)
+    friendships.map(&:friend).include?(new_friend) || self == new_friend
   end
   
 end
