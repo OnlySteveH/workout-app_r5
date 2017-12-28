@@ -15,7 +15,7 @@ RSpec.feature "Sending a message" do
     Friendship.create(user: @henry, friend: @john)
   end
   
-  scenario "to followers shows in chatroom window" do
+  scenario "displays the message in chatroom window" do
     expect(@john.room.name).to eq @room_name
     visit '/'
     

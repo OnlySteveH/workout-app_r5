@@ -10,7 +10,8 @@ class User < ApplicationRecord
   has_many :exercises
   has_many :friendships
   has_many :friends, through: :friendships, class_name: "User"
-  has_one :room
+  has_one  :room
+  has_many :messages
   
   self.per_page = 10
   
